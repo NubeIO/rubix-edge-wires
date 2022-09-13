@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/NubeDev/flow-eng v0.0.1
 	github.com/NubeIO/lib-dirs v0.0.7
+	github.com/NubeIO/lib-uuid v0.0.3
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.1
@@ -12,6 +13,7 @@ require (
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/viper v1.13.0
+	github.com/tidwall/buntdb v1.2.8
 )
 
 require (
@@ -46,7 +48,6 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/tidwall/btree v0.7.1 // indirect
-	github.com/tidwall/buntdb v1.2.8 // indirect
 	github.com/tidwall/gjson v1.14.3 // indirect
 	github.com/tidwall/grect v0.1.4 // indirect
 	github.com/tidwall/match v1.1.1 // indirect

@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	fileutils "github.com/NubeIO/lib-dirs/dirs"
+	"github.com/NubeIO/rubix-rules/flow"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -10,6 +11,7 @@ import (
 var fileUtils = fileutils.New()
 
 type Controller struct {
+	Flow *flow.Flow
 }
 
 type Response struct {

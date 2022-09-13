@@ -7,17 +7,43 @@ import (
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
-	"github.com/NubeDev/flow-eng/storage"
+	"github.com/NubeIO/rubix-rules/storage"
 	"io/ioutil"
-	"log"
 	"os"
 	"time"
 )
 
-func Flow() {
+type Flow struct {
+	DbPath  string `json:"dbPath"`
+	storage storage.Storage
+}
 
-	storage.New("")
-	filePath := flag.String("f", fmt.Sprintf("./flow/test.json"), "flow file")
+func New(f *Flow) *Flow {
+	f.storage = storage.New(f.DbPath)
+	return f
+}
+
+var quit chan struct{}
+
+func (inst *Flow) Start() {
+	quit = make(chan struct{})
+	go loop()
+}
+
+func (inst *Flow) Stop() {
+	quit <- struct{}{}
+}
+
+func (inst *Flow) getFirstFlow() {
+
+}
+
+func (inst *Flow) getDB() storage.Storage {
+	return inst.storage
+}
+
+func loop() {
+	filePath := flag.String("f", fmt.Sprintf("./test.json"), "flow file")
 	flag.Parse()
 	fmt.Println("file:", *filePath)
 
@@ -45,20 +71,19 @@ func Flow() {
 
 	graph.ReBuildFlow(true)
 
-	for _, n := range graph.GetNodes() {
-		fmt.Println("GET NODES:", n.GetName(), n.GetNodeName())
-	}
-
 	runner := flowctrl.NewSerialRunner(graph)
-	//pprint.PrintJOSN(graph.GetNodes())
-
-	log.Println("Flow started")
 	for {
-		err := runner.Process()
-		if err != nil {
-			fmt.Println(err)
-			panic(err)
+		select {
+		case <-quit:
+			return
+		default:
+			err := runner.Process()
+			if err != nil {
+				fmt.Println(err)
+				panic(err)
+			}
+			time.Sleep(1000 * time.Millisecond)
+
 		}
-		time.Sleep(1000 * time.Millisecond)
 	}
 }

@@ -52,8 +52,8 @@ func Setup(runFlow bool) *gin.Engine {
 		MaxAge:                 12 * time.Hour,
 	}))
 
-	go flow.Flow()
-	api := controller.Controller{}
+	f := flow.New(&flow.Flow{})
+	api := controller.Controller{Flow: f}
 	engine.POST("/api/users/login", api.Login)
 
 	handleAuth := func(c *gin.Context) { c.Next() }

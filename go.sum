@@ -72,6 +72,8 @@ github.com/NubeDev/flow-eng v0.0.1 h1:ObJvMwadaiJzzk3FUbo2+aOT1ihvDnWAw2nGjpklLJ
 github.com/NubeDev/flow-eng v0.0.1/go.mod h1:rd/AlPgj10Ml4fVE+IgiXDi1h31BIn1e+j+wofyLYKU=
 github.com/NubeIO/lib-dirs v0.0.7 h1:lTON7ZL9OicdujUUvCj0gagZNct1euJuX7Pr5ztHSxc=
 github.com/NubeIO/lib-dirs v0.0.7/go.mod h1:ay8NFXTWwtnNdE/JN9ZK5626CVq7UpjEeoQ2Ze6FE3U=
+github.com/NubeIO/lib-uuid v0.0.3 h1:OkjJWXLOLmEZozBYESsqXZUy9JJ3YKAfxpb2v9rDg6k=
+github.com/NubeIO/lib-uuid v0.0.3/go.mod h1:lLx2E+mqNntnVsgnA44rEVQXoXzKTcZDYTQdNacJLDg=
 github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3 h1:BG93vRFMgL+b7BDX0IgTot8S9eE9GPbj40nb8qzHy1Y=
 github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3/go.mod h1:5dAKp8Ut9uNzXKUkyX19R547vHcbrUFvpqt78kSl7oE=
 github.com/NubeIO/nubeio-rubix-lib-models-go v1.3.7/go.mod h1:J0Xy/dX/f/xIhEnW6ZhkE2LiyuRk2H9gCb0Uk+2SSSk=
