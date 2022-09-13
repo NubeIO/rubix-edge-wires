@@ -1,4 +1,4 @@
-package main
+package flow
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-func main() {
+func Flow() {
 
 	storage.New("")
 	filePath := flag.String("f", fmt.Sprintf("./flow/test.json"), "flow file")

@@ -28,7 +28,7 @@ func runServer(cmd *cobra.Command, args []string) {
 
 	logger.Logger.Infoln("starting rubix-rules...")
 
-	r := router.Setup()
+	r := router.Setup(flgRoot.runFlow)
 
 	host := "0.0.0.0"
 	port := config.Config.GetPort()

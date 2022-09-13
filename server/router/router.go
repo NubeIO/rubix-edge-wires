@@ -3,6 +3,7 @@ package router
 import (
 	"fmt"
 	"github.com/NubeIO/rubix-rules/config"
+	"github.com/NubeIO/rubix-rules/flow"
 	"github.com/NubeIO/rubix-rules/logger"
 	"github.com/NubeIO/rubix-rules/server/constants"
 	"github.com/NubeIO/rubix-rules/server/controller"
@@ -22,7 +23,7 @@ func NotFound() gin.HandlerFunc {
 	}
 }
 
-func Setup() *gin.Engine {
+func Setup(runFlow bool) *gin.Engine {
 	engine := gin.New()
 	// Set gin access logs
 	if viper.GetBool("gin.log.store") {
@@ -51,6 +52,7 @@ func Setup() *gin.Engine {
 		MaxAge:                 12 * time.Hour,
 	}))
 
+	go flow.Flow()
 	api := controller.Controller{}
 	engine.POST("/api/users/login", api.Login)
 
