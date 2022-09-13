@@ -10,6 +10,7 @@ import (
 )
 
 func TestInitializeBuntDB(t *testing.T) {
+
 	var nodesParsed []*node.BaseNode
 	jsonFile, err := os.Open("./test.json")
 	if err != nil {
@@ -21,7 +22,9 @@ func TestInitializeBuntDB(t *testing.T) {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	json.Unmarshal(byteValue, &nodesParsed)
 
-	db := New("test.db")
+	//home, _ := fileutils.HomeDir()
+
+	db := New(fmt.Sprintf("../data/flow.db"))
 	_, err = db.AddBackup(&Backup{
 		Data: nodesParsed,
 	})

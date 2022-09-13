@@ -59,7 +59,7 @@ func Setup(runFlow bool) *gin.Engine {
 	handleAuth := func(c *gin.Context) { c.Next() }
 
 	if config.Config.Auth() {
-		// handleAuth = api.HandleAuth() // TODO add back in auth
+		handleAuth = api.HandleAuth() // TODO add back in auth
 	}
 
 	apiRoutes := engine.Group("/api", handleAuth)
@@ -68,6 +68,12 @@ func Setup(runFlow bool) *gin.Engine {
 	{
 		user.PUT("", api.UpdateUser)
 		user.GET("", api.GetUser)
+	}
+
+	flowEng := apiRoutes.Group("/flow")
+	{
+		flowEng.POST("/start", api.StartFlow)
+		flowEng.POST("/stop", api.StopFlow)
 	}
 
 	token := apiRoutes.Group("/tokens")

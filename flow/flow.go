@@ -1,15 +1,11 @@
 package flow
 
 import (
-	"encoding/json"
-	"flag"
 	"fmt"
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
 	"github.com/NubeIO/rubix-rules/storage"
-	"io/ioutil"
-	"os"
 	"time"
 )
 
@@ -18,24 +14,37 @@ type Flow struct {
 	storage storage.Storage
 }
 
+var flowFile []*node.BaseNode
+
 func New(f *Flow) *Flow {
-	f.storage = storage.New(f.DbPath)
+	f.storage = storage.New("./data/flow.db")
+	f.getLatestFlow()
 	return f
 }
 
 var quit chan struct{}
 
-func (inst *Flow) Start() {
+type Message struct {
+	Message string
+}
+
+func (inst *Flow) Start() *Message {
 	quit = make(chan struct{})
 	go loop()
+	return &Message{"started ok"}
 }
 
-func (inst *Flow) Stop() {
+func (inst *Flow) Stop() *Message {
 	quit <- struct{}{}
+	return &Message{"stop ok"}
 }
 
-func (inst *Flow) getFirstFlow() {
-
+func (inst *Flow) getLatestFlow() {
+	backup, err := inst.getDB().GetLatestBackup()
+	if err != nil {
+		return
+	}
+	flowFile = backup.Data
 }
 
 func (inst *Flow) getDB() storage.Storage {
@@ -43,21 +52,8 @@ func (inst *Flow) getDB() storage.Storage {
 }
 
 func loop() {
-	filePath := flag.String("f", fmt.Sprintf("./test.json"), "flow file")
-	flag.Parse()
-	fmt.Println("file:", *filePath)
 
-	var nodesParsed []*node.BaseNode
-	jsonFile, err := os.Open(*filePath)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	// defer the closing of our jsonFile so that we can parse it later on
-	defer jsonFile.Close()
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	json.Unmarshal(byteValue, &nodesParsed)
-
+	var nodesParsed = flowFile
 	graph := flowctrl.New()
 	for _, n := range nodesParsed {
 		node_, err := nodes.Builder(n)
