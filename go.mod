@@ -1,6 +1,6 @@
 module github.com/NubeIO/rubix-rules
 
-//replace github.com/NubeDev/flow-eng => /home/aidan/code/go/nube/flow-eng
+replace github.com/NubeDev/flow-eng => /home/aidan/code/go/nube/flow-eng
 
 go 1.17
 

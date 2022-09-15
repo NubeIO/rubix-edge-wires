@@ -5,7 +5,6 @@ import (
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
-	pprint "github.com/NubeIO/rubix-rules/helpers/print"
 	"github.com/NubeIO/rubix-rules/storage"
 	"time"
 )
@@ -36,7 +35,6 @@ type Message struct {
 }
 
 func loop() {
-	pprint.PrintJOSN(latestFlow)
 	for _, n := range latestFlow {
 		node_, err := nodes.Builder(n)
 		if err != nil {
