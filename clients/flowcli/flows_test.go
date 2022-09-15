@@ -2,6 +2,7 @@ package flowcli
 
 import (
 	"fmt"
+	pprint "github.com/NubeIO/rubix-rules/helpers/print"
 	"testing"
 )
 
@@ -10,6 +11,14 @@ var client = New(nil)
 func TestFlowClient_GetBaseNodesList(t *testing.T) {
 	start, err := client.GetBaseNodesList()
 	fmt.Println(start, err)
+	if err != nil {
+		return
+	}
+}
+
+func TestFlowClient_NodePallet(t *testing.T) {
+	data, err := client.NodePallet()
+	pprint.PrintJOSN(data)
 	if err != nil {
 		return
 	}
