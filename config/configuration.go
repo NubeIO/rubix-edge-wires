@@ -10,8 +10,7 @@ import (
 var Config *Configuration
 var RootCmd *cobra.Command
 
-type Configuration struct {
-}
+type Configuration struct{}
 
 func Setup(rootCmd_ *cobra.Command) error {
 	RootCmd = rootCmd_

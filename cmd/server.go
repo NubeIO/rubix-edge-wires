@@ -12,8 +12,8 @@ import (
 
 var serverCmd = &cobra.Command{
 	Use:   "server",
-	Short: "starting rubix-rules",
-	Long:  "it starts a server for rubix-rules engine",
+	Short: "starting rubix-flow",
+	Long:  "it starts a server for rubix-flow engine",
 	Run:   runServer,
 }
 
@@ -26,7 +26,7 @@ func runServer(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	logger.Logger.Infoln("starting rubix-rules...")
+	logger.Logger.Infoln("starting rubix-flow...")
 
 	r := router.Setup(flgRoot.runFlow)
 

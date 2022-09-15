@@ -70,10 +70,21 @@ func Setup(runFlow bool) *gin.Engine {
 		user.GET("", api.GetUser)
 	}
 
-	flowEng := apiRoutes.Group("/flow")
+	flowEng := apiRoutes.Group("/flows")
 	{
+		flowEng.GET("", api.GetFlow)
+		flowEng.POST("/download", api.DownloadFlow)
 		flowEng.POST("/start", api.StartFlow)
+		flowEng.POST("/restart", api.RestartFlow)
 		flowEng.POST("/stop", api.StopFlow)
+	}
+
+	flowEngNodes := apiRoutes.Group("/nodes")
+	{
+
+		flowEngNodes.GET("/pallet", api.NodePallet)
+		flowEngNodes.GET("/", api.GetBaseNodesList)
+
 	}
 
 	token := apiRoutes.Group("/tokens")

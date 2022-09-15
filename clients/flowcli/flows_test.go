@@ -1,4 +1,4 @@
-package rules
+package flowcli
 
 import (
 	"fmt"
@@ -6,6 +6,22 @@ import (
 )
 
 var client = New(nil)
+
+func TestFlowClient_GetBaseNodesList(t *testing.T) {
+	start, err := client.GetBaseNodesList()
+	fmt.Println(start, err)
+	if err != nil {
+		return
+	}
+}
+
+func TestFlowClient_GetFlow(t *testing.T) {
+	start, err := client.GetFlow()
+	fmt.Println(start, err)
+	if err != nil {
+		return
+	}
+}
 
 func TestFlowClient_FlowStop(t *testing.T) {
 	start, err := client.FlowStop()

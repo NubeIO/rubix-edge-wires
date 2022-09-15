@@ -14,8 +14,8 @@ on:
       - 'v*'
 
 env:
-  APP_NAME: rubix-rules
-  GHCR_IMAGE: ghcr.io/nubeio/rubix-rules
+  APP_NAME: rubix-flowcli
+  GHCR_IMAGE: ghcr.io/nubeio/rubix-flowcli
   PLATFORMS: linux/amd64,linux/arm/v7
 
 jobs:

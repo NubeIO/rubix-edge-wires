@@ -14,11 +14,11 @@ import (
 )
 
 type Backup struct {
-	UUID        string           `json:"uuid"`
-	UserComment string           `json:"user_comment"`
-	Time        time.Time        `json:"time"`
-	Timestamp   string           `json:"timestamp"`
-	Data        []*node.BaseNode `json:"data,omitempty"`
+	UUID        string       `json:"uuid"`
+	UserComment string       `json:"user_comment"`
+	Time        time.Time    `json:"time"`
+	Timestamp   string       `json:"timestamp"`
+	Data        []*node.Spec `json:"data,omitempty"`
 }
 
 func matchBackupUUID(uuid string) bool {

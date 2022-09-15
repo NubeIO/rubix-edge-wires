@@ -5,20 +5,27 @@ import (
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
+	pprint "github.com/NubeIO/rubix-rules/helpers/print"
 	"github.com/NubeIO/rubix-rules/storage"
 	"time"
 )
 
 type Flow struct {
-	DbPath  string `json:"dbPath"`
-	storage storage.Storage
+	DbPath           string `json:"dbPath"`
+	storage          storage.Storage
+	AutoStartDisable bool
 }
 
-var flowFile []*node.BaseNode
+var latestFlow []*node.Spec
+var flowInst *flowctrl.Flow
 
 func New(f *Flow) *Flow {
 	f.storage = storage.New("./data/flow.db")
 	f.getLatestFlow()
+	flowInst = flowctrl.New()
+	if !f.AutoStartDisable {
+		f.Start()
+	}
 	return f
 }
 
@@ -28,46 +35,21 @@ type Message struct {
 	Message string
 }
 
-func (inst *Flow) Start() *Message {
-	quit = make(chan struct{})
-	go loop()
-	return &Message{"started ok"}
-}
-
-func (inst *Flow) Stop() *Message {
-	quit <- struct{}{}
-	return &Message{"stop ok"}
-}
-
-func (inst *Flow) getLatestFlow() {
-	backup, err := inst.getDB().GetLatestBackup()
-	if err != nil {
-		return
-	}
-	flowFile = backup.Data
-}
-
-func (inst *Flow) getDB() storage.Storage {
-	return inst.storage
-}
-
 func loop() {
-
-	var nodesParsed = flowFile
-	graph := flowctrl.New()
-	for _, n := range nodesParsed {
+	pprint.PrintJOSN(latestFlow)
+	for _, n := range latestFlow {
 		node_, err := nodes.Builder(n)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 		fmt.Println("ADD:", node_.GetName(), node_.GetNodeName(), "ERR", err)
-		graph.AddNode(node_)
+		flowInst.AddNode(node_)
 	}
 
-	graph.ReBuildFlow(true)
+	flowInst.ReBuildFlow(true)
 
-	runner := flowctrl.NewSerialRunner(graph)
+	runner := flowctrl.NewSerialRunner(flowInst)
 	for {
 		select {
 		case <-quit:
@@ -76,7 +58,6 @@ func loop() {
 			err := runner.Process()
 			if err != nil {
 				fmt.Println(err)
-				panic(err)
 			}
 			time.Sleep(1000 * time.Millisecond)
 

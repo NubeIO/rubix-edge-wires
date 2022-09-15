@@ -11,7 +11,7 @@ import (
 
 func TestInitializeBuntDB(t *testing.T) {
 
-	var nodesParsed []*node.BaseNode
+	var nodesParsed []*node.Spec
 	jsonFile, err := os.Open("./test.json")
 	if err != nil {
 		fmt.Println(err)
