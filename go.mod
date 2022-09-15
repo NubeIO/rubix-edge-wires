@@ -1,11 +1,11 @@
 module github.com/NubeIO/rubix-rules
 
-replace github.com/NubeDev/flow-eng => /home/aidan/code/go/nube/flow-eng
+//replace github.com/NubeDev/flow-eng => /home/aidan/code/go/nube/flow-eng
 
 go 1.17
 
 require (
-	github.com/NubeDev/flow-eng v0.0.4
+	github.com/NubeDev/flow-eng v0.0.5
 	github.com/NubeIO/lib-dirs v0.0.7
 	github.com/NubeIO/lib-uuid v0.0.3
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
