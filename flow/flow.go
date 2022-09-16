@@ -35,6 +35,7 @@ type Message struct {
 }
 
 func loop() {
+
 	for _, n := range latestFlow {
 		node_, err := nodes.Builder(n)
 		if err != nil {

@@ -4,13 +4,10 @@ import (
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
-	pprint "github.com/NubeIO/rubix-rules/helpers/print"
 	"github.com/NubeIO/rubix-rules/storage"
 )
 
 func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
-	d, _ := nodes.EncodePallet()
-	pprint.PrintJOSN(d)
 	return nodes.EncodePallet()
 }
 
