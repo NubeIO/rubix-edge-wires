@@ -5,7 +5,7 @@ module github.com/NubeIO/rubix-rules
 go 1.17
 
 require (
-	github.com/NubeDev/flow-eng v0.0.8
+	github.com/NubeDev/flow-eng v0.1.0
 	github.com/NubeIO/lib-dirs v0.0.7
 	github.com/NubeIO/lib-uuid v0.0.3
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
@@ -21,7 +21,14 @@ require (
 )
 
 require (
+	github.com/NubeIO/lib-goja v0.0.3 // indirect
+	github.com/NubeIO/nubeio-rubix-lib-helpers-go v0.2.7 // indirect
+	github.com/NubeIO/nubeio-rubix-lib-modbus-go v0.0.3 // indirect
+	github.com/NubeIO/nubeio-rubix-lib-rest-go v1.0.8 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/desertbit/timer v0.0.0-20180107155436-c41aec40b27f // indirect
+	github.com/dlclark/regexp2 v1.7.0 // indirect
+	github.com/dop251/goja v0.0.0-20220915101355-d79e1b125a30 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.4.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
@@ -29,10 +36,13 @@ require (
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.10.0 // indirect
+	github.com/go-sourcemap/sourcemap v2.1.3+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/goccy/go-json v0.9.7 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/grid-x/modbus v0.0.0-20220419073012-0daecbb3900f // indirect
+	github.com/grid-x/serial v0.0.0-20191104121038-e24bc9bf6f08 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
