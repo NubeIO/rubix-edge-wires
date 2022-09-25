@@ -2,7 +2,7 @@ module github.com/NubeIO/rubix-rules
 
 //replace github.com/NubeDev/flow-eng => /home/aidan/code/go/nube/flow-eng
 
-go 1.17
+go 1.18
 
 require (
 	github.com/NubeDev/flow-eng v0.1.1

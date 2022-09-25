@@ -10,7 +10,6 @@ import (
 
 func (inst *Flow) NodeSchema(nodeName string) (*schemas.Schema, error) {
 	return nodes.GetSchema(nodeName)
-
 }
 
 func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
