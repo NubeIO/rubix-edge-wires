@@ -30,7 +30,7 @@ func reposeHandler(body interface{}, err error, c *gin.Context, statusCode ...in
 			code = http.StatusNotFound
 		}
 		msg := Message{
-			Message: fmt.Sprintf("rubix-edge-bios: %s", err.Error()),
+			Message: fmt.Sprintf("flow: %s", err.Error()),
 		}
 		c.JSON(code, msg)
 	} else {

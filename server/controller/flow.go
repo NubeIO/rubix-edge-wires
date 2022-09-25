@@ -5,6 +5,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func (inst *Controller) NodeSchema(c *gin.Context) {
+	resp, err := inst.Flow.NodeSchema(c.Param("node"))
+	if err != nil {
+		reposeHandler(nil, err, c)
+		return
+	}
+	reposeHandler(resp, err, c)
+}
+
 func (inst *Controller) NodePallet(c *gin.Context) {
 	resp, err := inst.Flow.NodePallet()
 	if err != nil {

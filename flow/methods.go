@@ -4,8 +4,14 @@ import (
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
+	"github.com/NubeDev/flow-eng/schemas"
 	"github.com/NubeIO/rubix-rules/storage"
 )
+
+func (inst *Flow) NodeSchema(nodeName string) (*schemas.Schema, error) {
+	return nodes.GetSchema(nodeName)
+
+}
 
 func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
 	return nodes.EncodePallet()

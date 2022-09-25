@@ -5,7 +5,7 @@ module github.com/NubeIO/rubix-rules
 go 1.17
 
 require (
-	github.com/NubeDev/flow-eng v0.1.0
+	github.com/NubeDev/flow-eng v0.1.1
 	github.com/NubeIO/lib-dirs v0.0.7
 	github.com/NubeIO/lib-uuid v0.0.3
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
@@ -22,6 +22,7 @@ require (
 
 require (
 	github.com/NubeIO/lib-goja v0.0.3 // indirect
+	github.com/NubeIO/lib-schema v0.1.6 // indirect
 	github.com/NubeIO/nubeio-rubix-lib-helpers-go v0.2.7 // indirect
 	github.com/NubeIO/nubeio-rubix-lib-modbus-go v0.0.3 // indirect
 	github.com/NubeIO/nubeio-rubix-lib-rest-go v1.0.8 // indirect

@@ -82,6 +82,7 @@ func Setup(runFlow bool) *gin.Engine {
 	flowEngNodes := apiRoutes.Group("/nodes")
 	{
 
+		flowEngNodes.GET("/schema/:node", api.NodeSchema)
 		flowEngNodes.GET("/pallet", api.NodePallet)
 		flowEngNodes.GET("/", api.GetBaseNodesList)
 
