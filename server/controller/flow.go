@@ -30,7 +30,7 @@ func (inst *Controller) DownloadFlow(c *gin.Context) {
 		reposeHandler(nil, err, c)
 		return
 	}
-	resp, err := inst.Flow.DownloadFlow(body, true)
+	resp, err := inst.Flow.DownloadFlow(body, true, true)
 	if err != nil {
 		reposeHandler(nil, err, c)
 		return

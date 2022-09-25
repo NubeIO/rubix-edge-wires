@@ -17,12 +17,15 @@ func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
 }
 
 // DownloadFlow to the flow-eng
-func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow bool) (*Message, error) {
+func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveFlowToDB bool) (*Message, error) {
 	decode, err := inst.decode(encodedNodes)
 	if err != nil || decode == nil {
 		return nil, err
 	}
-	inst.setLatestFlow(decode)
+	err = inst.setLatestFlow(decode, saveFlowToDB)
+	if err != nil {
+		return nil, err
+	}
 	if restartFlow {
 		inst.Restart()
 	}
@@ -83,8 +86,15 @@ func (inst *Flow) Stop() *Message {
 	return &Message{"stop ok"}
 }
 
-func (inst *Flow) setLatestFlow(flow []*node.Spec) {
+func (inst *Flow) setLatestFlow(flow []*node.Spec, saveFlowToDB bool) error {
+	if saveFlowToDB {
+		_, err := inst.saveFlowDB(flow)
+		if err != nil {
+			return err
+		}
+	}
 	latestFlow = flow
+	return nil
 }
 
 func (inst *Flow) getLatestFlow() {
@@ -93,6 +103,11 @@ func (inst *Flow) getLatestFlow() {
 		return
 	}
 	latestFlow = backup.Data
+}
+
+func (inst *Flow) saveFlowDB(flow []*node.Spec) (*storage.Backup, error) {
+	back := &storage.Backup{Data: flow}
+	return inst.getDB().AddBackup(back)
 }
 
 func (inst *Flow) getDB() storage.Storage {

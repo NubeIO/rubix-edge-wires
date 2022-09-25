@@ -53,7 +53,6 @@ func (inst *db) AddBackup(body *Backup) (*Backup, error) {
 	if body.UserComment == "" {
 		body.UserComment = fmt.Sprintf("backup-%s", body.Timestamp)
 	}
-
 	data, err := json.Marshal(body)
 	if err != nil {
 		fmt.Printf("Error: %s", err)

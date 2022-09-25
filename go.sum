@@ -42,8 +42,8 @@ github.com/Azure/azure-sdk-for-go/sdk/internal v0.7.0/go.mod h1:yqy467j36fJxcRV2
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/Masterminds/semver/v3 v3.1.1/go.mod h1:VPu/7SZ7ePZ3QOrcuXROw5FAcLl4a0cBrbBpGY/8hQs=
-github.com/NubeDev/flow-eng v0.1.1 h1:w6ybyyk5KuFgvzyuIiBzxUjmlJXXrfNX+MVRggYc39c=
-github.com/NubeDev/flow-eng v0.1.1/go.mod h1:J9P6chou9k0SMKvsstiznUMzG9VONu06a/lTdtU7cUM=
+github.com/NubeDev/flow-eng v0.1.2 h1:D+LXBcrAtPIMJ/O+bweL9on67Mf2ImefFhfSPO+RaFs=
+github.com/NubeDev/flow-eng v0.1.2/go.mod h1:J9P6chou9k0SMKvsstiznUMzG9VONu06a/lTdtU7cUM=
 github.com/NubeIO/lib-dirs v0.0.7 h1:lTON7ZL9OicdujUUvCj0gagZNct1euJuX7Pr5ztHSxc=
 github.com/NubeIO/lib-dirs v0.0.7/go.mod h1:ay8NFXTWwtnNdE/JN9ZK5626CVq7UpjEeoQ2Ze6FE3U=
 github.com/NubeIO/lib-goja v0.0.3 h1:k0itRCtOx5ZFwxrObluG8PBA/C1w0JHLMiwetMZWmP8=
