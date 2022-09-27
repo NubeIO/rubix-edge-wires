@@ -5,6 +5,7 @@ import (
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
 	"github.com/NubeIO/rubix-rules/storage"
+	"github.com/mitchellh/mapstructure"
 )
 
 func (inst *Flow) NodeSchema(nodeName string) (interface{}, error) {
@@ -17,6 +18,11 @@ func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
 
 // DownloadFlow to the flow-eng
 func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveFlowToDB bool) (*Message, error) {
+	nodeList := &nodes.NodesList{}
+	err := mapstructure.Decode(encodedNodes, &nodeList)
+	if err != nil {
+		return nil, err
+	}
 	decode, err := inst.decode(encodedNodes)
 	if err != nil || decode == nil {
 		return nil, err

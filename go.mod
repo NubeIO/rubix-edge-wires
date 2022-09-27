@@ -5,7 +5,7 @@ module github.com/NubeIO/rubix-rules
 go 1.18
 
 require (
-	github.com/NubeDev/flow-eng v0.1.4
+	github.com/NubeDev/flow-eng v0.1.5
 	github.com/NubeIO/lib-dirs v0.0.7
 	github.com/NubeIO/lib-uuid v0.0.3
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
@@ -14,6 +14,7 @@ require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/google/uuid v1.3.0
+	github.com/mitchellh/mapstructure v1.5.0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/viper v1.13.0
@@ -52,7 +53,6 @@ require (
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
-	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
