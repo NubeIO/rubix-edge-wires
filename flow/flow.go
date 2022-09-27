@@ -3,6 +3,7 @@ package flow
 import (
 	"fmt"
 	flowctrl "github.com/NubeDev/flow-eng"
+	"github.com/NubeDev/flow-eng/db"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
 	"github.com/NubeIO/rubix-rules/storage"
@@ -36,8 +37,10 @@ type Message struct {
 
 func loop() {
 
+	newDb := db.New("./data/connections.db")
+
 	for _, n := range latestFlow {
-		node_, err := nodes.Builder(n)
+		node_, err := nodes.Builder(n, newDb)
 		if err != nil {
 			fmt.Println(err)
 			return

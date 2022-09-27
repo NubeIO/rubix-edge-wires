@@ -5,7 +5,7 @@ module github.com/NubeIO/rubix-rules
 go 1.18
 
 require (
-	github.com/NubeDev/flow-eng v0.1.3
+	github.com/NubeDev/flow-eng v0.1.4
 	github.com/NubeIO/lib-dirs v0.0.7
 	github.com/NubeIO/lib-uuid v0.0.3
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
