@@ -6,23 +6,28 @@ import (
 	"github.com/NubeDev/flow-eng/db"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
-	"github.com/NubeIO/rubix-rules/storage"
+	log "github.com/sirupsen/logrus"
 	"time"
 )
 
 type Flow struct {
 	DbPath           string `json:"dbPath"`
-	storage          storage.Storage
+	storage          db.DB
 	AutoStartDisable bool
 }
 
 var latestFlow []*node.Spec
 var flowInst *flowctrl.Flow
+var storage db.DB
 
 func New(f *Flow) *Flow {
-	f.storage = storage.New("./data/flow.db")
-	f.getLatestFlow()
+	storage = db.New("./data/flow.db")
+	err := f.getLatestFlow()
+	if err != nil {
+		log.Error(err)
+	}
 	flowInst = flowctrl.New()
+
 	if !f.AutoStartDisable {
 		f.Start()
 	}
@@ -37,18 +42,15 @@ type Message struct {
 
 func loop() {
 
-	newDb := db.New("./data/connections.db")
+	var nodesList []node.Node
 
 	for _, n := range latestFlow {
-		node_, err := nodes.Builder(n, newDb)
+		newNode, err := nodes.Builder(n, storage)
 		if err != nil {
-			fmt.Println(err)
-			return
 		}
-		fmt.Println("ADD:", node_.GetName(), node_.GetNodeName(), "ERR", err)
-		flowInst.AddNode(node_)
+		nodesList = append(nodesList, newNode)
 	}
-
+	flowInst.AddNodes(nodesList...)
 	flowInst.ReBuildFlow(true)
 
 	runner := flowctrl.NewSerialRunner(flowInst)

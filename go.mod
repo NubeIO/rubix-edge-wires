@@ -5,9 +5,8 @@ module github.com/NubeIO/rubix-rules
 go 1.18
 
 require (
-	github.com/NubeDev/flow-eng v0.1.5
+	github.com/NubeDev/flow-eng v0.1.7
 	github.com/NubeIO/lib-dirs v0.0.7
-	github.com/NubeIO/lib-uuid v0.0.3
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
 	github.com/NubeIO/nubeio-rubix-lib-models-go v1.3.7
 	github.com/gin-contrib/cors v1.4.0
@@ -18,7 +17,6 @@ require (
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/viper v1.13.0
-	github.com/tidwall/buntdb v1.2.8
 )
 
 require (
@@ -58,12 +56,14 @@ require (
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
+	github.com/rvflash/elapsed v0.3.0 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/tidwall/btree v0.7.1 // indirect
+	github.com/tidwall/buntdb v1.2.8 // indirect
 	github.com/tidwall/gjson v1.14.3 // indirect
 	github.com/tidwall/grect v0.1.4 // indirect
 	github.com/tidwall/match v1.1.1 // indirect

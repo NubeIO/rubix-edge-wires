@@ -1,15 +1,22 @@
 package flow
 
 import (
+	"github.com/NubeDev/flow-eng/db"
+	pprint "github.com/NubeIO/rubix-rules/helpers/print"
 	"testing"
-	"time"
 )
 
 func TestFlow_Start(t *testing.T) {
 
-	f := New(&Flow{})
-	f.Start()
-	time.Sleep(10 * time.Second)
-	f.Stop()
-
+	d := db.New("../data/flow.db")
+	connection, err := d.AddConnection(&db.Connection{
+		Application: "flow-framework",
+		Name:        "flow-framework",
+		Host:        "0.0.0.0",
+		Port:        1660,
+	})
+	pprint.Print(connection)
+	if err != nil {
+		return
+	}
 }

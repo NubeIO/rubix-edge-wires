@@ -1,10 +1,11 @@
 package flow
 
 import (
+	"encoding/json"
 	flowctrl "github.com/NubeDev/flow-eng"
+	"github.com/NubeDev/flow-eng/db"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
-	"github.com/NubeIO/rubix-rules/storage"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -23,7 +24,7 @@ func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveF
 	if err != nil {
 		return nil, err
 	}
-	decode, err := inst.decode(encodedNodes)
+	decode, err := inst.decode(nodeList)
 	if err != nil || decode == nil {
 		return nil, err
 	}
@@ -102,19 +103,24 @@ func (inst *Flow) setLatestFlow(flow []*node.Spec, saveFlowToDB bool) error {
 	return nil
 }
 
-func (inst *Flow) getLatestFlow() {
-	backup, err := inst.getDB().GetLatestBackup()
+func (inst *Flow) getLatestFlow() error {
+	backup, err := storage.GetLatestBackup()
 	if err != nil {
-		return
+		return err
 	}
-	latestFlow = backup.Data
+	var nodeList []*node.Spec
+	b, err := json.Marshal(backup.Data)
+	if err != nil {
+		return err
+	}
+	if err := json.Unmarshal(b, &nodeList); err != nil {
+		return err
+	}
+	latestFlow = nodeList
+	return nil
 }
 
-func (inst *Flow) saveFlowDB(flow []*node.Spec) (*storage.Backup, error) {
-	back := &storage.Backup{Data: flow}
-	return inst.getDB().AddBackup(back)
-}
-
-func (inst *Flow) getDB() storage.Storage {
-	return inst.storage
+func (inst *Flow) saveFlowDB(flow []*node.Spec) (*db.Backup, error) {
+	back := &db.Backup{Data: flow}
+	return storage.AddBackup(back)
 }
