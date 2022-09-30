@@ -5,7 +5,7 @@ module github.com/NubeIO/rubix-rules
 go 1.18
 
 require (
-	github.com/NubeDev/flow-eng v0.1.8
+	github.com/NubeDev/flow-eng v0.1.9
 	github.com/NubeIO/lib-dirs v0.0.7
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
 	github.com/NubeIO/nubeio-rubix-lib-models-go v1.3.7
@@ -47,6 +47,7 @@ require (
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
+	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
