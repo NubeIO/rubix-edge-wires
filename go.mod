@@ -1,4 +1,4 @@
-module github.com/NubeIO/rubix-rules
+module github.com/NubeIO/rubix-edge-wires
 
 //replace github.com/NubeDev/flow-eng => /home/aidan/code/go/nube/flow-eng
 

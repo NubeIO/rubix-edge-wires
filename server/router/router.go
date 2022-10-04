@@ -2,11 +2,11 @@ package router
 
 import (
 	"fmt"
-	"github.com/NubeIO/rubix-rules/config"
-	"github.com/NubeIO/rubix-rules/flow"
-	"github.com/NubeIO/rubix-rules/logger"
-	"github.com/NubeIO/rubix-rules/server/constants"
-	"github.com/NubeIO/rubix-rules/server/controller"
+	"github.com/NubeIO/rubix-edge-wires/config"
+	"github.com/NubeIO/rubix-edge-wires/flow"
+	"github.com/NubeIO/rubix-edge-wires/logger"
+	"github.com/NubeIO/rubix-edge-wires/server/constants"
+	"github.com/NubeIO/rubix-edge-wires/server/controller"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"

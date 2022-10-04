@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/NubeIO/rubix-rules/cmd"
+	"github.com/NubeIO/rubix-edge-wires/cmd"
 )
 
 func main() {

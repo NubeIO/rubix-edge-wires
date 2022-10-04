@@ -2,7 +2,7 @@ package flow
 
 import (
 	"github.com/NubeDev/flow-eng/db"
-	pprint "github.com/NubeIO/rubix-rules/helpers/print"
+	pprint "github.com/NubeIO/rubix-edge-wires/helpers/print"
 	"testing"
 )
 

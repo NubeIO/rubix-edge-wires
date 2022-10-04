@@ -2,7 +2,7 @@ package logger
 
 import (
 	"fmt"
-	"github.com/NubeIO/rubix-rules/config"
+	"github.com/NubeIO/rubix-edge-wires/config"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"os"

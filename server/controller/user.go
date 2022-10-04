@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/NubeIO/nubeio-rubix-lib-auth-go/user"
-	"github.com/NubeIO/rubix-rules/server/interfaces"
-	"github.com/NubeIO/rubix-rules/server/nerrors"
+	"github.com/NubeIO/rubix-edge-wires/server/interfaces"
+	"github.com/NubeIO/rubix-edge-wires/server/nerrors"
 	"github.com/gin-gonic/gin"
 )
 

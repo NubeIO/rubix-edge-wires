@@ -3,7 +3,7 @@ package controller
 import (
 	"fmt"
 	fileutils "github.com/NubeIO/lib-dirs/dirs"
-	"github.com/NubeIO/rubix-rules/flow"
+	"github.com/NubeIO/rubix-edge-wires/flow"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

@@ -4,7 +4,7 @@ import (
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
 	"github.com/NubeDev/flow-eng/services/clients/ffclient/nresty"
-	"github.com/NubeIO/rubix-rules/flow"
+	"github.com/NubeIO/rubix-edge-wires/flow"
 )
 
 func (inst *FlowClient) GetFlow() ([]node.Spec, error) {

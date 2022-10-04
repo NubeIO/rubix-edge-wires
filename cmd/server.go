@@ -2,18 +2,18 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/NubeIO/rubix-rules/config"
-	"github.com/NubeIO/rubix-rules/logger"
-	"github.com/NubeIO/rubix-rules/server/constants"
-	"github.com/NubeIO/rubix-rules/server/router"
+	"github.com/NubeIO/rubix-edge-wires/config"
+	"github.com/NubeIO/rubix-edge-wires/logger"
+	"github.com/NubeIO/rubix-edge-wires/server/constants"
+	"github.com/NubeIO/rubix-edge-wires/server/router"
 	"github.com/spf13/cobra"
 	"os"
 )
 
 var serverCmd = &cobra.Command{
 	Use:   "server",
-	Short: "starting rubix-flow",
-	Long:  "it starts a server for rubix-flow engine",
+	Short: "starting rubix-edge-wires",
+	Long:  "it starts a server for edge-wires flow-engine",
 	Run:   runServer,
 }
 
@@ -26,7 +26,7 @@ func runServer(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	logger.Logger.Infoln("starting rubix-flow...")
+	logger.Logger.Infoln("starting rubix-edge-wires...")
 
 	r := router.Setup(flgRoot.runFlow)
 
