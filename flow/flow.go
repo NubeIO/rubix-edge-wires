@@ -63,7 +63,7 @@ func loop() {
 			if err != nil {
 				fmt.Println(err)
 			}
-			time.Sleep(200 * time.Millisecond)
+			time.Sleep(100 * time.Millisecond)
 
 		}
 	}

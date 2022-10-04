@@ -14,6 +14,11 @@ func (inst *Controller) NodeSchema(c *gin.Context) {
 	reposeHandler(resp, err, c)
 }
 
+func (inst *Controller) NodesValues(c *gin.Context) {
+	resp := inst.Flow.NodesValues()
+	reposeHandler(resp, nil, c)
+}
+
 func (inst *Controller) NodePallet(c *gin.Context) {
 	resp, err := inst.Flow.NodePallet()
 	if err != nil {

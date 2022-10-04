@@ -13,6 +13,11 @@ func (inst *Flow) NodeSchema(nodeName string) (interface{}, error) {
 	return nodes.GetSchema(nodeName)
 }
 
+// NodesValues get all the node current values from the runtime
+func (inst *Flow) NodesValues() []*node.Values {
+	return inst.getFlowInst().NodesValues()
+}
+
 func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
 	return nodes.EncodePallet()
 }
