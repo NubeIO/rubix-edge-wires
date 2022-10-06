@@ -58,7 +58,7 @@ func loop() {
 	opts := &bacnet.Bacnet{
 		Store:       points.New(names.Edge, nil, 0, 200, 200),
 		MqttClient:  mqttClient,
-		Application: names.Edge,
+		Application: names.RubixIO,
 	}
 	for _, n := range latestFlow {
 		var node_ node.Node
