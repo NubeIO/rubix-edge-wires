@@ -43,7 +43,6 @@ type Message struct {
 func loop() {
 	var err error
 	var nodesList []node.Node
-
 	//mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
 	//	Servers: []string{"tcp://0.0.0.0:1883"},
 	//})
