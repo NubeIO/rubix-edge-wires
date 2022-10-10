@@ -44,7 +44,11 @@ func (inst *Controller) DownloadFlow(c *gin.Context) {
 }
 
 func (inst *Controller) GetFlow(c *gin.Context) {
-	resp := inst.Flow.GetFlow()
+	resp, err := inst.Flow.GetFlow()
+	if err != nil {
+		reposeHandler(nil, err, c)
+		return
+	}
 	reposeHandler(resp, nil, c)
 }
 

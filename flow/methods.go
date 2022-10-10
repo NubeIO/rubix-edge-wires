@@ -2,10 +2,12 @@ package flow
 
 import (
 	"encoding/json"
+	"errors"
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/db"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
+	pprint "github.com/NubeIO/rubix-edge-wires/helpers/print"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -24,6 +26,7 @@ func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
 
 // DownloadFlow to the flow-eng
 func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveFlowToDB bool) (*Message, error) {
+	pprint.PrintJOSN(encodedNodes)
 	nodeList := &nodes.NodesList{}
 	err := mapstructure.Decode(encodedNodes, &nodeList)
 	if err != nil {
@@ -53,11 +56,12 @@ func (inst *Flow) encode() (*nodes.NodesList, error) {
 	return nodes.Encode(inst.getFlowInst())
 }
 
-func (inst *Flow) GetFlow() []*node.Spec {
+func (inst *Flow) GetFlow() (*nodes.NodesList, error) {
 	if inst.getFlowInst() != nil {
-		return inst.getFlowInst().GetNodesSpec()
+		inst.getFlowInst().GetNodesSpec()
+		return nodes.Encode(inst.getFlowInst().Get())
 	}
-	return nil
+	return nil, errors.New("failed to get flow instance")
 }
 
 func (inst *Flow) WipeFlow() []*node.Spec {
