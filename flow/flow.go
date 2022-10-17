@@ -10,6 +10,7 @@ import (
 	"github.com/NubeDev/flow-eng/nodes/protocols/bacnet"
 	"github.com/NubeDev/flow-eng/nodes/protocols/bacnet/points"
 	"github.com/NubeDev/flow-eng/services/mqttclient"
+	"github.com/NubeIO/rubix-edge-wires/config"
 	log "github.com/sirupsen/logrus"
 	"time"
 )
@@ -26,7 +27,7 @@ var bacnetStore *bacnet.Bacnet
 var storage db.DB
 
 func New(f *Flow) *Flow {
-	storage = db.New("./data/flow.db")
+	storage = db.New(config.Config.GetAbsDatabaseFile())
 	err := f.getLatestFlow()
 	if err != nil {
 		log.Error(err)

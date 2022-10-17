@@ -14,8 +14,8 @@ on:
       - 'v*'
 
 env:
-  APP_NAME: rubix-flowcli
-  GHCR_IMAGE: ghcr.io/nubeio/rubix-flowcli
+  APP_NAME: rubix-edge-wires
+  GHCR_IMAGE: ghcr.io/nubeio/rubix-edge-wires
   PLATFORMS: linux/amd64,linux/arm/v7
 
 jobs:
@@ -104,11 +104,9 @@ jobs:
         run: |
           mkdir -p /tmp/zip
           artifact=${{ needs.context.outputs.fqn }}.armv7
-          cp ./app-armv7 ./rubix-rules
-          zip -r /tmp/zip/$artifact.zip ./rubix-rules
+          zip -r /tmp/zip/$artifact.zip ./app-armv7
           artifact=${{ needs.context.outputs.fqn }}.amd64
-          cp ./app-amd64 ./rubix-rules
-          zip -r /tmp/zip/$artifact.zip ./rubix-rules
+          zip -r /tmp/zip/$artifact.zip ./app-amd64
 
       - name: Create Release
         if: ${{ needs.context.outputs.isRelease == 'true' }}
@@ -123,4 +121,3 @@ jobs:
           files: |
             /tmp/zip/*.amd64.zip
             /tmp/zip/*.armv7.zip
-            
