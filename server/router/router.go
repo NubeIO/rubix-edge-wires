@@ -84,6 +84,7 @@ func Setup(runFlow bool) *gin.Engine {
 
 		flowEngNodes.GET("/schema/:node", api.NodeSchema)
 		flowEngNodes.GET("/values", api.NodesValues)
+		flowEngNodes.GET("/values/:uuid", api.NodesValue)
 		flowEngNodes.GET("/pallet", api.NodePallet)
 		flowEngNodes.GET("/", api.GetBaseNodesList)
 

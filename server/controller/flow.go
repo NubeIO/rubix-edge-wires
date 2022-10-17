@@ -14,6 +14,15 @@ func (inst *Controller) NodeSchema(c *gin.Context) {
 	reposeHandler(resp, err, c)
 }
 
+func (inst *Controller) NodesValue(c *gin.Context) {
+	resp, err := inst.Flow.NodesValue(c.Param("uuid"))
+	if err != nil {
+		reposeHandler(nil, err, c)
+		return
+	}
+	reposeHandler(resp, err, c)
+}
+
 func (inst *Controller) NodesValues(c *gin.Context) {
 	resp := inst.Flow.NodesValues()
 	reposeHandler(resp, nil, c)

@@ -14,6 +14,10 @@ func (inst *Flow) NodeSchema(nodeName string) (interface{}, error) {
 	return nodes.GetSchema(nodeName)
 }
 
+func (inst *Flow) NodesValue(uuid string) (*node.Values, error) {
+	return inst.getFlowInst().NodesValue(uuid)
+}
+
 // NodesValues get all the node current values from the runtime
 func (inst *Flow) NodesValues() []*node.Values {
 	return inst.getFlowInst().NodesValues()
