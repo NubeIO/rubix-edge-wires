@@ -67,3 +67,7 @@ func (conf *Configuration) getDataDir() string {
 func (conf *Configuration) getConfigDir() string {
 	return RootCmd.PersistentFlags().Lookup("config-dir").Value.String()
 }
+
+func (conf *Configuration) GetAbsDatabaseFile() string {
+	return path.Join(Config.GetAbsDataDir(), viper.GetString("database.name"))
+}
