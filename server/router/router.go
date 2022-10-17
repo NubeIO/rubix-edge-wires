@@ -23,11 +23,11 @@ func NotFound() gin.HandlerFunc {
 	}
 }
 
-func Setup(runFlow bool) *gin.Engine {
+func Setup() *gin.Engine {
 	engine := gin.New()
 	// Set gin access logs
 	if viper.GetBool("gin.log.store") {
-		fileLocation := fmt.Sprintf("%s/rubix-edge-bios.access.log", config.Config.GetAbsDataDir())
+		fileLocation := fmt.Sprintf("%s/rubix-edge-wires.access.log", config.Config.GetAbsDataDir())
 		f, err := os.OpenFile(fileLocation, os.O_CREATE|os.O_WRONLY|os.O_APPEND, constants.Permission)
 		if err != nil {
 			logger.Logger.Errorf("Failed to create access log file: %v", err)
@@ -59,7 +59,7 @@ func Setup(runFlow bool) *gin.Engine {
 	handleAuth := func(c *gin.Context) { c.Next() }
 
 	if config.Config.Auth() {
-		handleAuth = api.HandleAuth() // TODO add back in auth
+		// handleAuth = api.HandleAuth() // TODO add back in auth
 	}
 
 	apiRoutes := engine.Group("/api", handleAuth)
@@ -81,13 +81,11 @@ func Setup(runFlow bool) *gin.Engine {
 
 	flowEngNodes := apiRoutes.Group("/nodes")
 	{
-
 		flowEngNodes.GET("/schema/:node", api.NodeSchema)
 		flowEngNodes.GET("/values", api.NodesValues)
 		flowEngNodes.GET("/values/:uuid", api.NodesValue)
 		flowEngNodes.GET("/pallet", api.NodePallet)
 		flowEngNodes.GET("/", api.GetBaseNodesList)
-
 	}
 
 	token := apiRoutes.Group("/tokens")

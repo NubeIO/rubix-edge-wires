@@ -21,7 +21,6 @@ func Execute() {
 var flgRoot struct {
 	prod      bool
 	auth      bool
-	runFlow   bool
 	port      int
 	rootDir   string
 	appDir    string
@@ -31,8 +30,7 @@ var flgRoot struct {
 
 func init() {
 	RootCmd.PersistentFlags().BoolVarP(&flgRoot.prod, "prod", "", false, "prod")
-	RootCmd.PersistentFlags().BoolVarP(&flgRoot.prod, "auth", "", false, "auth")
-	RootCmd.PersistentFlags().BoolVarP(&flgRoot.runFlow, "flow", "", false, "start the flow engine")
+	RootCmd.PersistentFlags().BoolVarP(&flgRoot.auth, "auth", "", true, "auth")
 	RootCmd.PersistentFlags().IntVarP(&flgRoot.port, "port", "p", 1665, "port (default 1665)")
 	RootCmd.PersistentFlags().StringVarP(&flgRoot.rootDir, "root-dir", "r", "./", "root dir") // in production it will be `/data`
 	RootCmd.PersistentFlags().StringVarP(&flgRoot.appDir, "app-dir", "a", "./", "app dir")    // in production it will be `rubix-edge-bios`

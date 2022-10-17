@@ -28,7 +28,7 @@ func runServer(cmd *cobra.Command, args []string) {
 
 	logger.Logger.Infoln("starting rubix-edge-wires...")
 
-	r := router.Setup(flgRoot.runFlow)
+	r := router.Setup()
 
 	host := "0.0.0.0"
 	port := config.Config.GetPort()
