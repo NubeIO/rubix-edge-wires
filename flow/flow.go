@@ -9,6 +9,7 @@ import (
 	"github.com/NubeDev/flow-eng/nodes"
 	"github.com/NubeDev/flow-eng/nodes/protocols/bacnet"
 	"github.com/NubeDev/flow-eng/nodes/protocols/bacnet/points"
+	"github.com/NubeDev/flow-eng/nodes/protocols/driver"
 	"github.com/NubeDev/flow-eng/services/mqttclient"
 	"github.com/NubeIO/rubix-edge-wires/config"
 	log "github.com/sirupsen/logrus"
@@ -65,6 +66,11 @@ func makeBacnetStore() *bacnet.Bacnet {
 func loop() {
 	var err error
 	var nodesList []node.Node
+	var parentList = nodes.FilterNodes(latestFlow, nodes.FilterIsParent, "")
+	var parentChildList = nodes.FilterNodes(latestFlow, nodes.FilterIsParentChild, "")
+	var childList = nodes.FilterNodes(latestFlow, nodes.FilterIsChild, "")
+	var nonChildNodes = nodes.FilterNodes(latestFlow, nodes.FilterNonContainer, "")
+
 	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
 		Servers: []string{"tcp://0.0.0.0:1883"},
 	})
@@ -78,18 +84,49 @@ func loop() {
 		Application: names.RubixIOAndModbus,
 	}
 
-	for _, n := range latestFlow {
+	var networksPool driver.Driver // flow networks inst
+	if networksPool == nil {
+		networksPool = driver.New(&driver.Networks{})
+	}
+
+	// add the container nodes first, then the children and so on
+	for _, n := range parentList {
 		var node_ node.Node
 		if n.Info.Category == "bacnet" {
 			node_, err = nodes.Builder(n, storage, opts)
+		} else if n.Info.Category == "flow" {
+			node_, err = nodes.Builder(n, storage, networksPool)
 		} else {
 			node_, err = nodes.Builder(n, storage)
 		}
+		nodesList = append(nodesList, node_)
+	}
 
-		if err != nil {
+	for _, n := range parentChildList {
+		var node_ node.Node
+		if n.Info.Category == "flow" {
+			node_, err = nodes.Builder(n, storage, networksPool)
+		} else {
+			node_, err = nodes.Builder(n, storage)
 		}
 		nodesList = append(nodesList, node_)
 	}
+
+	for _, n := range childList {
+		var node_ node.Node
+		if n.Info.Category == "flow" {
+			node_, err = nodes.Builder(n, storage, networksPool)
+		} else {
+			node_, err = nodes.Builder(n, storage)
+		}
+		nodesList = append(nodesList, node_)
+	}
+	for _, n := range nonChildNodes {
+		var node_ node.Node
+		node_, err = nodes.Builder(n, storage)
+		nodesList = append(nodesList, node_)
+	}
+
 	flowInst.AddNodes(nodesList...)
 	flowInst.ReBuildFlow(true)
 
