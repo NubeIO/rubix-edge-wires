@@ -10,12 +10,17 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-func (inst *Flow) NodeSchema(nodeName string) (interface{}, error) {
-	return nodes.GetSchema(nodeName)
-}
-
 func (inst *Flow) NodesValue(uuid string) (*node.Values, error) {
 	return inst.getFlowInst().NodesValue(uuid)
+}
+
+func (inst *Flow) NodeSchema(nodeName string) (interface{}, error) {
+	for _, n := range inst.getFlowInst().GetNodes() {
+		if nodeName == n.GetName() {
+			return n.GetSchema(), nil
+		}
+	}
+	return nil, nil
 }
 
 // NodesValues get all the node current values from the runtime
