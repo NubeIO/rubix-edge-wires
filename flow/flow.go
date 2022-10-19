@@ -54,9 +54,9 @@ func makeBacnetStore() *bacnet.Bacnet {
 		log.Error(err)
 	}
 	opts := &bacnet.Bacnet{
-		Store:       points.New(names.RubixIOAndModbus, nil, 2, 200, 200),
+		Store:       points.New(names.RubixIO, nil, 0, 200, 200),
 		MqttClient:  mqttClient,
-		Application: names.RubixIOAndModbus,
+		Application: names.RubixIO,
 	}
 	return opts
 }
