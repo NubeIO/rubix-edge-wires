@@ -18,7 +18,6 @@ import (
 
 type Flow struct {
 	DbPath           string `json:"dbPath"`
-	storage          db.DB
 	AutoStartDisable bool
 }
 
