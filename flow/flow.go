@@ -23,7 +23,6 @@ type Flow struct {
 
 var latestFlow []*node.Spec
 var flowInst *flowctrl.Flow
-var bacnetStore *bacnet.Bacnet
 var storage db.DB
 
 func New(f *Flow) *Flow {
@@ -70,17 +69,9 @@ func loop() {
 	var childList = nodes.FilterNodes(latestFlow, nodes.FilterIsChild, "")
 	var nonChildNodes = nodes.FilterNodes(latestFlow, nodes.FilterNonContainer, "")
 
-	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
-		Servers: []string{"tcp://0.0.0.0:1883"},
-	})
-	err = mqttClient.Connect()
-	if err != nil {
-		log.Error(err)
-	}
-	opts := &bacnet.Bacnet{
-		Store:       points.New(names.RubixIOAndModbus, nil, 2, 200, 200),
-		MqttClient:  mqttClient,
-		Application: names.RubixIOAndModbus,
+	var bacnetStore *bacnet.Bacnet
+	if bacnetStore == nil {
+		bacnetStore = makeBacnetStore()
 	}
 
 	var networksPool driver.Driver // flow networks inst
@@ -92,7 +83,7 @@ func loop() {
 	for _, n := range parentList {
 		var node_ node.Node
 		if n.Info.Category == "bacnet" {
-			node_, err = nodes.Builder(n, storage, opts)
+			node_, err = nodes.Builder(n, storage, bacnetStore)
 		} else if n.Info.Category == "flow" {
 			node_, err = nodes.Builder(n, storage, networksPool)
 		} else {
@@ -113,7 +104,9 @@ func loop() {
 
 	for _, n := range childList {
 		var node_ node.Node
-		if n.Info.Category == "flow" {
+		if n.Info.Category == "bacnet" {
+			node_, err = nodes.Builder(n, storage, bacnetStore)
+		} else if n.Info.Category == "flow" {
 			node_, err = nodes.Builder(n, storage, networksPool)
 		} else {
 			node_, err = nodes.Builder(n, storage)
@@ -124,6 +117,10 @@ func loop() {
 		var node_ node.Node
 		node_, err = nodes.Builder(n, storage)
 		nodesList = append(nodesList, node_)
+	}
+
+	if err != nil {
+		log.Error(err)
 	}
 
 	flowInst.AddNodes(nodesList...)
