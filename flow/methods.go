@@ -65,7 +65,6 @@ func (inst *Flow) encode() (*nodes.NodesList, error) {
 
 func (inst *Flow) GetFlow() (*nodes.NodesList, error) {
 	if inst.getFlowInst() != nil {
-		inst.getFlowInst().GetNodesSpec()
 		return nodes.Encode(inst.getFlowInst().Get())
 	}
 	return nil, errors.New("failed to get flow instance")

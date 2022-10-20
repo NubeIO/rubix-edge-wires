@@ -46,8 +46,9 @@ type Message struct {
 }
 
 func makeBacnetStore() *bacnet.Bacnet {
+	ip := "192.168.15.153"
 	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
-		Servers: []string{"tcp://0.0.0.0:1883"},
+		Servers: []string{fmt.Sprintf("tcp://%s:1883", ip)},
 	})
 	err = mqttClient.Connect()
 	if err != nil {
@@ -57,6 +58,7 @@ func makeBacnetStore() *bacnet.Bacnet {
 		Store:       points.New(names.RubixIO, nil, 0, 200, 200),
 		MqttClient:  mqttClient,
 		Application: names.RubixIO,
+		Ip:          ip,
 	}
 	return opts
 }
@@ -122,7 +124,6 @@ func loop() {
 	if err != nil {
 		log.Error(err)
 	}
-
 	flowInst.AddNodes(nodesList...)
 	flowInst.ReBuildFlow(true)
 
