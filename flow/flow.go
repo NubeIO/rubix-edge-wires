@@ -32,7 +32,6 @@ func New(f *Flow) *Flow {
 		log.Error(err)
 	}
 	flowInst = flowctrl.New()
-
 	if !f.AutoStartDisable {
 		f.Start()
 	}
@@ -46,7 +45,8 @@ type Message struct {
 }
 
 func makeBacnetStore() *bacnet.Bacnet {
-	ip := "0.0.0.0"
+	//ip := "0.0.0.0"
+	ip := "192.168.15.191"
 	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
 		Servers: []string{fmt.Sprintf("tcp://%s:1883", ip)},
 	})
@@ -75,7 +75,7 @@ func loop() {
 	if bacnetStore == nil {
 		bacnetStore = makeBacnetStore()
 	}
-	var networksPool driver.Driver // flow networks inst
+	var networksPool driver.Driver // flow-framework networks inst
 	if networksPool == nil {
 		networksPool = driver.New(&driver.Networks{})
 	}
