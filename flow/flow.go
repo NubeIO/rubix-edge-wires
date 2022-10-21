@@ -45,8 +45,8 @@ type Message struct {
 }
 
 func makeBacnetStore() *bacnet.Bacnet {
-	//ip := "0.0.0.0"
-	ip := "192.168.15.191"
+	ip := "0.0.0.0"
+	//ip := "192.168.15.191"
 	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
 		Servers: []string{fmt.Sprintf("tcp://%s:1883", ip)},
 	})
