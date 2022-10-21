@@ -46,7 +46,7 @@ type Message struct {
 }
 
 func makeBacnetStore() *bacnet.Bacnet {
-	ip := "192.168.15.153"
+	ip := "0.0.0.0"
 	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
 		Servers: []string{fmt.Sprintf("tcp://%s:1883", ip)},
 	})
@@ -75,7 +75,6 @@ func loop() {
 	if bacnetStore == nil {
 		bacnetStore = makeBacnetStore()
 	}
-
 	var networksPool driver.Driver // flow networks inst
 	if networksPool == nil {
 		networksPool = driver.New(&driver.Networks{})
@@ -137,7 +136,7 @@ func loop() {
 			if err != nil {
 				fmt.Println(err)
 			}
-			time.Sleep(500 * time.Millisecond)
+			time.Sleep(100 * time.Millisecond)
 		}
 	}
 }
