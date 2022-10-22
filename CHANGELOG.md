@@ -1,4 +1,8 @@
 # CHANGELOG
+## [v0.1.2](https://github.com/NubeIO/rubix-edge-wires/tree/v0.1.2) (2022-10-22)
+
+- For testing on hardware
+
 
 ## [v0.1.0](https://github.com/NubeIO/rubix-edge-wires/tree/v0.1.0) (2022-10-17)
 
