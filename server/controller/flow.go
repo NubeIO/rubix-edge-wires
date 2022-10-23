@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
 	"github.com/gin-gonic/gin"
 )
@@ -16,6 +17,21 @@ func (inst *Controller) NodeSchema(c *gin.Context) {
 
 func (inst *Controller) NodesValue(c *gin.Context) {
 	resp, err := inst.Flow.NodesValue(c.Param("uuid"))
+	if err != nil {
+		reposeHandler(nil, err, c)
+		return
+	}
+	reposeHandler(resp, err, c)
+}
+
+func (inst *Controller) SetNodePayload(c *gin.Context) {
+	var body *node.Payload
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		reposeHandler(nil, err, c)
+		return
+	}
+	resp, err := inst.Flow.SetNodePayload(c.Param("uuid"), body)
 	if err != nil {
 		reposeHandler(nil, err, c)
 		return

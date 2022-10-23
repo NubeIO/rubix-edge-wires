@@ -5,14 +5,16 @@ import (
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/db"
 	"github.com/NubeDev/flow-eng/helpers/names"
+	"github.com/NubeDev/flow-eng/helpers/store"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
-	"github.com/NubeDev/flow-eng/nodes/protocols/bacnet"
+	bacnetio "github.com/NubeDev/flow-eng/nodes/protocols/bacnet"
 	"github.com/NubeDev/flow-eng/nodes/protocols/bacnet/points"
 	"github.com/NubeDev/flow-eng/nodes/protocols/driver"
 	"github.com/NubeDev/flow-eng/services/mqttclient"
 	"github.com/NubeIO/rubix-edge-wires/config"
 	log "github.com/sirupsen/logrus"
+	"strconv"
 	"time"
 )
 
@@ -24,6 +26,7 @@ type Flow struct {
 var latestFlow []*node.Spec
 var flowInst *flowctrl.Flow
 var storage db.DB
+var cacheStore *store.Store
 
 func New(f *Flow) *Flow {
 	storage = db.New(config.Config.GetAbsDatabaseFile())
@@ -44,7 +47,11 @@ type Message struct {
 	Message string
 }
 
-func makeBacnetStore() *bacnet.Bacnet {
+func makeStore() *store.Store {
+	return store.Init()
+}
+
+func makeBacnetStore(application string, deviceCount string) *bacnetio.Bacnet {
 	ip := "0.0.0.0"
 	//ip := "192.168.15.191"
 	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
@@ -54,10 +61,12 @@ func makeBacnetStore() *bacnet.Bacnet {
 	if err != nil {
 		log.Error(err)
 	}
-	opts := &bacnet.Bacnet{
-		Store:       points.New(names.RubixIO, nil, 0, 200, 200),
+	i, err := strconv.Atoi(deviceCount)
+	app := names.ApplicationName(application)
+	opts := &bacnetio.Bacnet{
+		Store:       points.New(names.ApplicationName(application), nil, i, 200, 200),
 		MqttClient:  mqttClient,
-		Application: names.RubixIO,
+		Application: app,
 		Ip:          ip,
 	}
 	return opts
@@ -71,9 +80,26 @@ func loop() {
 	var childList = nodes.FilterNodes(latestFlow, nodes.FilterIsChild, "")
 	var nonChildNodes = nodes.FilterNodes(latestFlow, nodes.FilterNonContainer, "")
 
-	var bacnetStore *bacnet.Bacnet
+	if cacheStore == nil {
+		cacheStore = makeStore()
+	}
+
+	var bacnetStore *bacnetio.Bacnet
 	if bacnetStore == nil {
-		bacnetStore = makeBacnetStore()
+		app := names.RubixIO
+		deviceCount := "0"
+		for _, n := range latestFlow {
+			if n.GetName() == "bacnet-server" {
+				schema, err := bacnetio.GetBacnetSchema(n.Settings)
+				if err != nil {
+				}
+				if schema != nil {
+					app = names.ApplicationName(schema.AppType)
+					deviceCount = schema.DeviceCount
+				}
+			}
+			bacnetStore = makeBacnetStore(string(app), deviceCount)
+		}
 	}
 	var networksPool driver.Driver // flow-framework networks inst
 	if networksPool == nil {
@@ -84,11 +110,11 @@ func loop() {
 	for _, n := range parentList {
 		var node_ node.Node
 		if n.Info.Category == "bacnet" {
-			node_, err = nodes.Builder(n, storage, bacnetStore)
+			node_, err = nodes.Builder(n, storage, cacheStore, bacnetStore)
 		} else if n.Info.Category == "flow" {
-			node_, err = nodes.Builder(n, storage, networksPool)
+			node_, err = nodes.Builder(n, storage, cacheStore, networksPool)
 		} else {
-			node_, err = nodes.Builder(n, storage)
+			node_, err = nodes.Builder(n, storage, cacheStore)
 		}
 		nodesList = append(nodesList, node_)
 	}
@@ -96,9 +122,9 @@ func loop() {
 	for _, n := range parentChildList {
 		var node_ node.Node
 		if n.Info.Category == "flow" {
-			node_, err = nodes.Builder(n, storage, networksPool)
+			node_, err = nodes.Builder(n, storage, cacheStore, networksPool)
 		} else {
-			node_, err = nodes.Builder(n, storage)
+			node_, err = nodes.Builder(n, storage, cacheStore)
 		}
 		nodesList = append(nodesList, node_)
 	}
@@ -106,17 +132,17 @@ func loop() {
 	for _, n := range childList {
 		var node_ node.Node
 		if n.Info.Category == "bacnet" {
-			node_, err = nodes.Builder(n, storage, bacnetStore)
+			node_, err = nodes.Builder(n, storage, cacheStore, bacnetStore)
 		} else if n.Info.Category == "flow" {
-			node_, err = nodes.Builder(n, storage, networksPool)
+			node_, err = nodes.Builder(n, storage, cacheStore, networksPool)
 		} else {
-			node_, err = nodes.Builder(n, storage)
+			node_, err = nodes.Builder(n, storage, cacheStore)
 		}
 		nodesList = append(nodesList, node_)
 	}
 	for _, n := range nonChildNodes {
 		var node_ node.Node
-		node_, err = nodes.Builder(n, storage)
+		node_, err = nodes.Builder(n, storage, cacheStore)
 		nodesList = append(nodesList, node_)
 	}
 
@@ -125,6 +151,10 @@ func loop() {
 	}
 	flowInst.AddNodes(nodesList...)
 	flowInst.ReBuildFlow(true)
+
+	for _, n := range flowInst.Get().GetNodes() { // add all nodes to each node so data can be passed between nodes easy
+		n.AddNodes(flowInst.Get().GetNodes())
+	}
 
 	runner := flowctrl.NewSerialRunner(flowInst)
 	for {

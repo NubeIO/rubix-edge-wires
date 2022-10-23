@@ -5,7 +5,7 @@ module github.com/NubeIO/rubix-edge-wires
 go 1.18
 
 require (
-	github.com/NubeDev/flow-eng v0.3.8
+	github.com/NubeDev/flow-eng v0.3.9
 	github.com/NubeIO/lib-dirs v0.0.7
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
 	github.com/NubeIO/nubeio-rubix-lib-models-go v1.3.7
@@ -54,6 +54,7 @@ require (
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
+	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
