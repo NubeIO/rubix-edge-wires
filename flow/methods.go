@@ -50,7 +50,7 @@ func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveF
 		return nil, err
 	}
 	decode, err := inst.decode(nodeList)
-	if err != nil || decode == nil {
+	if err != nil {
 		return nil, err
 	}
 	err = inst.setLatestFlow(decode, saveFlowToDB)
