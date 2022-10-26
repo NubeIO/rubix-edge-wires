@@ -22,7 +22,11 @@ func (inst *Flow) NodeSchema(nodeName string) (interface{}, error) {
 			return n.GetSchema(), nil
 		}
 	}
-	return nil, nil
+	schema, err := nodes.GetSchema(nodeName)
+	if err != nil {
+		return nil, err
+	}
+	return schema, nil
 }
 
 // SetNodePayload write value to a node from an api
