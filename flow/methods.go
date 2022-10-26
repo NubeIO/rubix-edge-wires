@@ -19,7 +19,9 @@ func (inst *Flow) NodesValue(uuid string) (*node.Values, error) {
 func (inst *Flow) NodeSchema(nodeName string) (interface{}, error) {
 	for _, n := range inst.getFlowInst().GetNodes() {
 		if nodeName == n.GetName() {
-			return n.GetSchema(), nil
+			if n.GetSchema() != nil {
+				return n.GetSchema(), nil
+			}
 		}
 	}
 	schema, err := nodes.GetSchema(nodeName)
