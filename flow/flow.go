@@ -150,12 +150,11 @@ func loop() {
 		log.Error(err)
 	}
 	flowInst.AddNodes(nodesList...)
-	flowInst.ReBuildFlow(true)
-
+	flowInst.MakeNodeConnections(true)
+	flowInst.MakeGraph()
 	for _, n := range flowInst.Get().GetNodes() { // add all nodes to each node so data can be passed between nodes easy
 		n.AddNodes(flowInst.Get().GetNodes())
 	}
-
 	runner := flowctrl.NewSerialRunner(flowInst)
 	for {
 		select {
