@@ -155,3 +155,7 @@ func (inst *Flow) saveFlowDB(flow []*node.Spec) (*db.Backup, error) {
 	back := &db.Backup{Data: flow}
 	return storage.AddBackup(back)
 }
+
+func (inst *Flow) NodesHelp() []*node.Help {
+	return nodes.NodeHelp()
+}

@@ -164,7 +164,7 @@ func loop() {
 		default:
 			err := runner.Process()
 			if err != nil {
-				fmt.Println(err)
+				log.Error(err)
 			}
 			time.Sleep(100 * time.Millisecond)
 		}
