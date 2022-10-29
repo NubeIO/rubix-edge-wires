@@ -155,6 +155,7 @@ func loop() {
 	for _, n := range flowInst.Get().GetNodes() { // add all nodes to each node so data can be passed between nodes easy
 		n.AddNodes(flowInst.Get().GetNodes())
 	}
+	log.Infof("graphs count: %d nodes count: %d", len(flowInst.Graphs), len(flowInst.GetNodes()))
 	runner := flowctrl.NewSerialRunner(flowInst)
 	for {
 		select {
