@@ -5,7 +5,7 @@ module github.com/NubeIO/rubix-edge-wires
 go 1.18
 
 require (
-	github.com/NubeDev/flow-eng v0.4.9
+	github.com/NubeDev/flow-eng v0.5.0
 	github.com/NubeIO/lib-dirs v0.0.7
 	github.com/NubeIO/nubeio-rubix-lib-auth-go v1.0.3
 	github.com/NubeIO/nubeio-rubix-lib-models-go v1.3.7
@@ -30,6 +30,7 @@ require (
 	github.com/dlclark/regexp2 v1.7.0 // indirect
 	github.com/dop251/goja v0.0.0-20220915101355-d79e1b125a30 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.4.1 // indirect
+	github.com/enescakir/emoji v1.0.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-co-op/gocron v1.17.0 // indirect

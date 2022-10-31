@@ -42,8 +42,8 @@ github.com/Azure/azure-sdk-for-go/sdk/internal v0.7.0/go.mod h1:yqy467j36fJxcRV2
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/Masterminds/semver/v3 v3.1.1/go.mod h1:VPu/7SZ7ePZ3QOrcuXROw5FAcLl4a0cBrbBpGY/8hQs=
-github.com/NubeDev/flow-eng v0.4.9 h1:zZ8veAlQrMRcu/wOgLCPa2DobMHeQinliqfzQJ9FfNY=
-github.com/NubeDev/flow-eng v0.4.9/go.mod h1:jp1zQ0qbC0nx1TboQ6U4S965dPEx8ovFkMJGIkJ1Qy8=
+github.com/NubeDev/flow-eng v0.5.0 h1:tDdffaNSHGmzzp4momX5d9DdgUBG0ncgjE8Oz97HHjM=
+github.com/NubeDev/flow-eng v0.5.0/go.mod h1:7BjUV/uKRuYWGEk98m1JwTKVUFrStlb8JFDrbq5CS50=
 github.com/NubeIO/lib-dirs v0.0.7 h1:lTON7ZL9OicdujUUvCj0gagZNct1euJuX7Pr5ztHSxc=
 github.com/NubeIO/lib-dirs v0.0.7/go.mod h1:ay8NFXTWwtnNdE/JN9ZK5626CVq7UpjEeoQ2Ze6FE3U=
 github.com/NubeIO/lib-goja v0.0.4 h1:IPAL5judMwdB93qe84izkQGd/6kj3CCb0fohTRSAQKQ=
@@ -99,6 +99,8 @@ github.com/dop251/goja_nodejs v0.0.0-20210225215109-d91c329300e7/go.mod h1:hn7BA
 github.com/dop251/goja_nodejs v0.0.0-20211022123610-8dd9abb0616d/go.mod h1:DngW8aVqWbuLRMHItjPUyqdj+HWPvnQe8V8y1nDpIbM=
 github.com/eclipse/paho.mqtt.golang v1.4.1 h1:tUSpviiL5G3P9SZZJPC4ZULZJsxQKXxfENpMvdbAXAI=
 github.com/eclipse/paho.mqtt.golang v1.4.1/go.mod h1:JGt0RsEwEX+Xa/agj90YJ9d9DH2b7upDZMK9HRbFvCA=
+github.com/enescakir/emoji v1.0.0 h1:W+HsNql8swfCQFtioDGDHCHri8nudlK1n5p2rHCJoog=
+github.com/enescakir/emoji v1.0.0/go.mod h1:Bt1EKuLnKDTYpLALApstIkAjdDrS/8IAgTkKp+WKFD0=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=
