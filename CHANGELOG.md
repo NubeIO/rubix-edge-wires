@@ -1,4 +1,8 @@
 # CHANGELOG
+## [v0.1.4](https://github.com/NubeIO/rubix-edge-wires/tree/v0.1.4) (2022-11-02)
+
+- Updates for testing
+
 ## [v0.1.3](https://github.com/NubeIO/rubix-edge-wires/tree/v0.1.3) (2022-10-26)
 
 - Updates for testing
