@@ -61,3 +61,12 @@ func (inst *Controller) NodesHelp(c *gin.Context) {
 	resp := inst.Flow.NodesHelp()
 	reposeHandler(resp, nil, c)
 }
+
+func (inst *Controller) NodeHelpByName(c *gin.Context) {
+	resp, err := inst.Flow.NodeHelpByName(c.Param("node"))
+	if err != nil {
+		reposeHandler(nil, err, c)
+		return
+	}
+	reposeHandler(resp, nil, c)
+}

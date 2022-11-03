@@ -159,3 +159,7 @@ func (inst *Flow) saveFlowDB(flow []*node.Spec) (*db.Backup, error) {
 func (inst *Flow) NodesHelp() []*node.Help {
 	return nodes.NodeHelp()
 }
+
+func (inst *Flow) NodeHelpByName(nodeName string) (*node.Help, error) {
+	return nodes.NodeHelpByName(nodeName)
+}
