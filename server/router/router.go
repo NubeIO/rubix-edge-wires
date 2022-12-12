@@ -88,16 +88,16 @@ func Setup() *gin.Engine {
 		flowEngNodes.GET("/pallet", api.NodePallet)
 		flowEngNodes.GET("/help", api.NodesHelp)
 		flowEngNodes.GET("/help/:node", api.NodeHelpByName)
-		flowEngNodes.GET("/", api.GetBaseNodesList)
+		flowEngNodes.GET("", api.GetBaseNodesList)
 	}
 
 	connections := apiRoutes.Group("/connections")
 	{
-		connections.GET("/", api.GetConnections)
+		connections.GET("", api.GetConnections)
 		connections.GET("/:uuid", api.GetConnection)
 		connections.PATCH("/:uuid", api.UpdateConnection)
 		connections.DELETE("/:uuid", api.DeleteConnection)
-		connections.POST("/", api.AddConnection)
+		connections.POST("", api.AddConnection)
 	}
 
 	token := apiRoutes.Group("/tokens")
