@@ -53,7 +53,6 @@ func makeStore() *store.Store {
 
 func makeBacnetStore(application string, deviceCount string) *bacnetio.Bacnet {
 	ip := "0.0.0.0"
-	//ip := "192.168.15.191"
 	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
 		Servers: []string{fmt.Sprintf("tcp://%s:1883", ip)},
 	})
@@ -86,7 +85,7 @@ func loop() {
 
 	var bacnetStore *bacnetio.Bacnet
 	if bacnetStore == nil {
-		app := names.RubixIO
+		app := names.Modbus
 		deviceCount := "0"
 		for _, n := range latestFlow {
 			if n.GetName() == "bacnet-server" {
@@ -94,7 +93,6 @@ func loop() {
 				if err != nil {
 				}
 				if schema != nil {
-					app = names.ApplicationName(schema.AppType)
 					deviceCount = schema.DeviceCount
 				}
 			}

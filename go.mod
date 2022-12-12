@@ -5,7 +5,7 @@ module github.com/NubeIO/rubix-edge-wires
 go 1.18
 
 require (
-	github.com/NubeDev/flow-eng v0.5.5
+	github.com/NubeDev/flow-eng v0.5.6
 	github.com/NubeIO/lib-dirs v0.0.7
 	github.com/NubeIO/nubeio-rubix-lib-models-go v1.3.7
 	github.com/gin-contrib/cors v1.4.0
@@ -22,8 +22,6 @@ require (
 	github.com/NubeIO/lib-schema v0.1.6 // indirect
 	github.com/NubeIO/nubeio-rubix-lib-helpers-go v0.2.7 // indirect
 	github.com/NubeIO/nubeio-rubix-lib-modbus-go v0.0.4 // indirect
-	github.com/NubeIO/nubeio-rubix-lib-rest-go v1.0.8 // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/desertbit/timer v0.0.0-20180107155436-c41aec40b27f // indirect
 	github.com/dlclark/regexp2 v1.7.0 // indirect
 	github.com/dop251/goja v0.0.0-20220915101355-d79e1b125a30 // indirect
