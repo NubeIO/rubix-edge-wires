@@ -54,21 +54,8 @@ func Setup() *gin.Engine {
 
 	f := flow.New(&flow.Flow{})
 	api := controller.Controller{Flow: f}
-	engine.POST("/api/users/login", api.Login)
 
-	handleAuth := func(c *gin.Context) { c.Next() }
-
-	if config.Config.Auth() {
-		// handleAuth = api.HandleAuth() // TODO add back in auth
-	}
-
-	apiRoutes := engine.Group("/api", handleAuth)
-
-	user := apiRoutes.Group("/users")
-	{
-		user.PUT("", api.UpdateUser)
-		user.GET("", api.GetUser)
-	}
+	apiRoutes := engine.Group("/api")
 
 	flowEng := apiRoutes.Group("/flows")
 	{
@@ -98,15 +85,6 @@ func Setup() *gin.Engine {
 		connections.PATCH("/:uuid", api.UpdateConnection)
 		connections.DELETE("/:uuid", api.DeleteConnection)
 		connections.POST("", api.AddConnection)
-	}
-
-	token := apiRoutes.Group("/tokens")
-	{
-		token.GET("", api.GetTokens)
-		token.POST("/generate", api.GenerateToken)
-		token.PUT("/:uuid/block", api.BlockToken)
-		token.PUT("/:uuid/regenerate", api.RegenerateToken)
-		token.DELETE("/:uuid", api.DeleteToken)
 	}
 
 	return engine
