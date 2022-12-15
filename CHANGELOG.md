@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## [v0.1.8](https://github.com/NubeIO/rubix-edge-wires/tree/v0.1.8) (2022-12-15)
+
+- Bump flow version to v0.5.7
+
 ## [v0.1.7](https://github.com/NubeIO/rubix-edge-wires/tree/v0.1.7) (2022-12-12)
 
 - Remove suffix slash (/) from APIs for to support reverse proxy
