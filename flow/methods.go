@@ -3,12 +3,10 @@ package flow
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/db"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
-	pprint "github.com/NubeIO/rubix-edge-wires/helpers/print"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -47,9 +45,6 @@ func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
 
 // DownloadFlow to the flow-eng
 func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveFlowToDB bool) (*Message, error) {
-	fmt.Println("!!!!!!!!!!!!! JSON FROM FRONTEND !!!!!!!!!!!!!!!")
-	pprint.PrintJOSN(encodedNodes)
-	fmt.Println("!!!!!!!!!!!!! JSON FROM FRONTEND !!!!!!!!!!!!!!!")
 	nodeList := &nodes.NodesList{}
 	err := mapstructure.Decode(encodedNodes, &nodeList)
 	if err != nil {
@@ -72,11 +67,6 @@ func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveF
 //decode flow data from the UI
 func (inst *Flow) decode(encodedNodes *nodes.NodesList) ([]*node.Spec, error) {
 	return nodes.Decode(encodedNodes)
-}
-
-//encode the flow to send to UI
-func (inst *Flow) encode() (*nodes.NodesList, error) {
-	return nodes.Encode(inst.getFlowInst())
 }
 
 func (inst *Flow) GetFlow() (*nodes.NodesList, error) {
