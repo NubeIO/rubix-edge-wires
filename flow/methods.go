@@ -3,10 +3,12 @@ package flow
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	flowctrl "github.com/NubeDev/flow-eng"
 	"github.com/NubeDev/flow-eng/db"
 	"github.com/NubeDev/flow-eng/node"
 	"github.com/NubeDev/flow-eng/nodes"
+	pprint "github.com/NubeIO/rubix-edge-wires/helpers/print"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -46,6 +48,8 @@ func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
 // DownloadFlow to the flow-eng
 func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveFlowToDB bool) (*Message, error) {
 	nodeList := &nodes.NodesList{}
+	fmt.Println("FROM UI")
+	pprint.PrintJOSN(encodedNodes)
 	err := mapstructure.Decode(encodedNodes, &nodeList)
 	if err != nil {
 		return nil, err
