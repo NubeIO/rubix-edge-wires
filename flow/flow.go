@@ -38,6 +38,10 @@ func New(f *Flow) *Flow {
 	if !f.AutoStartDisable {
 		f.Start()
 	}
+	err = f.addDefaultConnection()
+	if err != nil {
+		log.Error(err)
+	}
 	return f
 }
 
