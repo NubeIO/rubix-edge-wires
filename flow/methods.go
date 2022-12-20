@@ -65,7 +65,7 @@ func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveF
 	if restartFlow {
 		inst.Restart()
 	}
-	return &Message{"downloaded new flow ok"}, err
+	return &Message{fmt.Sprintf("downloaded ok node count %d", len(decode))}, err
 }
 
 //decode flow data from the UI
