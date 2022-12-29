@@ -64,6 +64,9 @@ func makeBacnetStore(application string, deviceCount int) *bacnetio.Bacnet {
 	mqttClient, err = mqttclient.NewClient(mqttclient.ClientOptions{
 		Servers: []string{fmt.Sprintf("tcp://%s:1883", ip)},
 	})
+	if err != nil {
+		log.Error(err)
+	}
 	err = mqttClient.Connect()
 	if err != nil {
 		log.Error(err)
@@ -120,7 +123,6 @@ func onStop() {
 }
 
 func loop() {
-	onStart()
 	var err error
 	var nodesList []node.Node
 	var parentList = nodes.FilterNodes(latestFlow, nodes.FilterIsParent, "")
@@ -182,7 +184,6 @@ func loop() {
 	for {
 		select {
 		case <-quit:
-			onStop()
 			return
 		default:
 			err := runner.Process()
