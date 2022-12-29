@@ -48,7 +48,7 @@ func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
 // DownloadFlow to the flow-eng
 func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveFlowToDB bool) (*Message, error) {
 	nodeList := &nodes.NodesList{}
-	fmt.Println("FROM UI")
+	fmt.Println("From UI")
 	pprint.PrintJOSN(encodedNodes)
 	err := mapstructure.Decode(encodedNodes, &nodeList)
 	if err != nil {
@@ -68,7 +68,7 @@ func (inst *Flow) DownloadFlow(encodedNodes *nodes.NodesList, restartFlow, saveF
 	return &Message{fmt.Sprintf("downloaded ok node count %d", len(decode))}, err
 }
 
-//decode flow data from the UI
+// decode flow data from the UI
 func (inst *Flow) decode(encodedNodes *nodes.NodesList) ([]*node.Spec, error) {
 	return nodes.Decode(encodedNodes)
 }
@@ -112,8 +112,8 @@ func (inst *Flow) Start() *Message {
 }
 
 func (inst *Flow) Stop() *Message {
-	inst.WipeFlow()
 	quit <- struct{}{}
+	inst.WipeFlow()
 	return &Message{"stop ok"}
 }
 
