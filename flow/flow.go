@@ -64,6 +64,7 @@ func makeBacnetStore(application string, deviceCount int) *bacnetio.Bacnet {
 	mqttClient, err = mqttclient.NewClient(mqttclient.ClientOptions{
 		Servers: []string{fmt.Sprintf("tcp://%s:1883", ip)},
 	})
+	fmt.Println("mqttClient>>>>", mqttClient)
 	if err != nil {
 		log.Error(err)
 	}
@@ -115,7 +116,6 @@ func onStop() {
 		if mqttClient.IsConnected() {
 			mqttClient.Close()
 		}
-		mqttClient = nil
 	}
 	if bacnetStore != nil {
 		bacnetStore = nil
