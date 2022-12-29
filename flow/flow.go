@@ -60,7 +60,8 @@ func makeStore() *store.Store {
 
 func makeBacnetStore(application string, deviceCount int) *bacnetio.Bacnet {
 	ip := "0.0.0.0"
-	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
+	var err error
+	mqttClient, err = mqttclient.NewClient(mqttclient.ClientOptions{
 		Servers: []string{fmt.Sprintf("tcp://%s:1883", ip)},
 	})
 	err = mqttClient.Connect()
@@ -77,7 +78,7 @@ func makeBacnetStore(application string, deviceCount int) *bacnetio.Bacnet {
 	return bacnet
 }
 
-func initOnStart() {
+func onStart() {
 	cacheStore = makeStore()
 	networksPool = driver.New(&driver.Networks{}) // flow-framework networks instance
 
@@ -98,7 +99,7 @@ func initOnStart() {
 	}
 }
 
-func terminateOnStop() {
+func onStop() {
 	if cacheStore == nil {
 		cacheStore.Store.Flush()
 	}
@@ -119,7 +120,7 @@ func terminateOnStop() {
 }
 
 func loop() {
-	initOnStart()
+	onStart()
 	var err error
 	var nodesList []node.Node
 	var parentList = nodes.FilterNodes(latestFlow, nodes.FilterIsParent, "")
@@ -181,7 +182,7 @@ func loop() {
 	for {
 		select {
 		case <-quit:
-			terminateOnStop()
+			onStop()
 			return
 		default:
 			err := runner.Process()
