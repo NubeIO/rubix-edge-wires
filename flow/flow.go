@@ -27,6 +27,9 @@ var latestFlow []*node.Spec
 var flowInst *flowctrl.Flow
 var storage db.DB
 var cacheStore *store.Store
+var bacnetStore *bacnetio.Bacnet
+var networksPool driver.Driver
+var mqttClient *mqttclient.Client
 
 func New(f *Flow) *Flow {
 	storage = db.New(config.Config.GetAbsDatabaseFile())
@@ -55,7 +58,7 @@ func makeStore() *store.Store {
 	return store.Init()
 }
 
-func makeBacnetStore(application string, deviceCount string) *bacnetio.Bacnet {
+func makeBacnetStore(application string, deviceCount int) *bacnetio.Bacnet {
 	ip := "0.0.0.0"
 	mqttClient, err := mqttclient.NewClient(mqttclient.ClientOptions{
 		Servers: []string{fmt.Sprintf("tcp://%s:1883", ip)},
@@ -64,49 +67,65 @@ func makeBacnetStore(application string, deviceCount string) *bacnetio.Bacnet {
 	if err != nil {
 		log.Error(err)
 	}
-	i, err := strconv.Atoi(deviceCount)
 	app := names.ApplicationName(application)
-	opts := &bacnetio.Bacnet{
-		Store:       points.New(names.ApplicationName(application), nil, i, 200, 200),
+	bacnet := &bacnetio.Bacnet{
+		Store:       points.New(names.ApplicationName(application), nil, deviceCount, 200, 200),
 		MqttClient:  mqttClient,
 		Application: app,
 		Ip:          ip,
 	}
-	return opts
+	return bacnet
+}
+
+func initOnStart() {
+	cacheStore = makeStore()
+	networksPool = driver.New(&driver.Networks{}) // flow-framework networks instance
+
+	app := names.Modbus
+	var deviceCount *string
+	for _, n := range latestFlow {
+		if n.GetName() == "bacnet-server" {
+			schema, _ := bacnetio.GetBacnetSchema(n.Settings)
+			if schema != nil {
+				deviceCount = &schema.DeviceCount
+			}
+			break
+		}
+	}
+	if deviceCount != nil {
+		i, _ := strconv.Atoi(*deviceCount)
+		bacnetStore = makeBacnetStore(string(app), i)
+	}
+}
+
+func terminateOnStop() {
+	if cacheStore == nil {
+		cacheStore.Store.Flush()
+	}
+
+	if networksPool != nil {
+		networksPool = nil
+	}
+
+	if mqttClient != nil {
+		if mqttClient.IsConnected() {
+			mqttClient.Close()
+		}
+		mqttClient = nil
+	}
+	if bacnetStore != nil {
+		bacnetStore = nil
+	}
 }
 
 func loop() {
+	initOnStart()
 	var err error
 	var nodesList []node.Node
 	var parentList = nodes.FilterNodes(latestFlow, nodes.FilterIsParent, "")
 	var parentChildList = nodes.FilterNodes(latestFlow, nodes.FilterIsParentChild, "")
 	var childList = nodes.FilterNodes(latestFlow, nodes.FilterIsChild, "")
 	var nonChildNodes = nodes.FilterNodes(latestFlow, nodes.FilterNonContainer, "")
-
-	if cacheStore == nil {
-		cacheStore = makeStore()
-	}
-
-	var bacnetStore *bacnetio.Bacnet
-	if bacnetStore == nil {
-		app := names.Modbus
-		deviceCount := "0"
-		for _, n := range latestFlow {
-			if n.GetName() == "bacnet-server" {
-				schema, err := bacnetio.GetBacnetSchema(n.Settings)
-				if err != nil {
-				}
-				if schema != nil {
-					deviceCount = schema.DeviceCount
-				}
-			}
-			bacnetStore = makeBacnetStore(string(app), deviceCount)
-		}
-	}
-	var networksPool driver.Driver // flow-framework networks inst
-	if networksPool == nil {
-		networksPool = driver.New(&driver.Networks{})
-	}
 
 	// add the container nodes first, then the children and so on
 	for _, n := range parentList {
@@ -162,6 +181,7 @@ func loop() {
 	for {
 		select {
 		case <-quit:
+			terminateOnStop()
 			return
 		default:
 			err := runner.Process()

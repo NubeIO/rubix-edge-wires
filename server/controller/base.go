@@ -2,13 +2,10 @@ package controller
 
 import (
 	"fmt"
-	fileutils "github.com/NubeIO/lib-dirs/dirs"
 	"github.com/NubeIO/rubix-edge-wires/flow"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
-
-var fileUtils = fileutils.New()
 
 type Controller struct {
 	Flow *flow.Flow
