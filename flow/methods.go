@@ -106,14 +106,14 @@ func (inst *Flow) Restart() *Message {
 }
 
 func (inst *Flow) Start() *Message {
-	onStart()
+	beforeStart()
+	go start()
 	quit = make(chan struct{})
-	go loop()
 	return &Message{"started ok"}
 }
 
 func (inst *Flow) Stop() *Message {
-	onStop()
+	beforeStop()
 	quit <- struct{}{}
 	inst.WipeFlow()
 	return &Message{"stop ok"}
