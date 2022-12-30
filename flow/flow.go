@@ -23,6 +23,7 @@ type Flow struct {
 	AutoStartDisable bool
 }
 
+var runner *flowctrl.SerialRunner
 var latestFlow []*node.Spec
 var flowInst *flowctrl.Flow
 var storage db.DB
@@ -82,7 +83,7 @@ func makeBacnetStore(application string, deviceCount int) *bacnetio.Bacnet {
 	return bacnet
 }
 
-func onStart() {
+func beforeStart() {
 	cacheStore = makeStore()
 	networksPool = driver.New(&driver.Networks{}) // flow-framework networks instance
 
@@ -103,8 +104,12 @@ func onStart() {
 	}
 }
 
-func onStop() {
-	if cacheStore == nil {
+func beforeStop() {
+	if runner != nil {
+		runner.Stop()
+	}
+
+	if cacheStore != nil {
 		cacheStore.Store.Flush()
 	}
 
@@ -122,7 +127,7 @@ func onStop() {
 	}
 }
 
-func loop() {
+func start() {
 	var err error
 	var nodesList []node.Node
 	var parentList = nodes.FilterNodes(latestFlow, nodes.FilterIsParent, "")
@@ -180,16 +185,14 @@ func loop() {
 		n.AddNodes(flowInst.Get().GetNodes())
 	}
 	log.Infof("graphs count: %d nodes count: %d", len(flowInst.Graphs), len(flowInst.GetNodes()))
-	runner := flowctrl.NewSerialRunner(flowInst)
+	runner = flowctrl.NewSerialRunner(flowInst)
+	runner.Start()
 	for {
 		select {
 		case <-quit:
 			return
 		default:
-			err := runner.Process()
-			if err != nil {
-				log.Error(err)
-			}
+			runner.Process()
 			time.Sleep(100 * time.Millisecond)
 		}
 	}
