@@ -70,6 +70,8 @@ func Setup() *gin.Engine {
 	{
 		flowEngNodes.GET("/schema/:node", api.NodeSchema)
 		flowEngNodes.GET("/values", api.NodesValues)
+		flowEngNodes.GET("/values/parent/:uuid", api.NodesValuesInsideParent)
+		flowEngNodes.GET("/values/sub/:uuid", api.NodesValuesSubFlow)
 		flowEngNodes.POST("/payload/:uuid", api.SetNodePayload)
 		flowEngNodes.GET("/values/:uuid", api.NodesValue)
 		flowEngNodes.GET("/pallet", api.NodePallet)

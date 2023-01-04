@@ -41,6 +41,16 @@ func (inst *Flow) NodesValues() []*node.Values {
 	return inst.getFlowInst().NodesValues()
 }
 
+// NodesValuesInsideParent get all the node current values from the runtime for one parent
+func (inst *Flow) NodesValuesInsideParent(parentID string) []*node.Values {
+	return inst.getFlowInst().NodesValuesInsideParent(parentID)
+}
+
+// NodesValuesSubFlow get all the node current values from the runtime for a parent node with sub-flow inputs and outputs values
+func (inst *Flow) NodesValuesSubFlow(parentID string) []*node.Values {
+	return inst.getFlowInst().NodesValuesSubFlow(parentID)
+}
+
 func (inst *Flow) NodePallet() ([]*nodes.PalletNode, error) {
 	return nodes.EncodePallet()
 }

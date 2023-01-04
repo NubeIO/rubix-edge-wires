@@ -48,6 +48,16 @@ func (inst *Controller) NodesValues(c *gin.Context) {
 	reposeHandler(resp, nil, c)
 }
 
+func (inst *Controller) NodesValuesInsideParent(c *gin.Context) {
+	resp := inst.Flow.NodesValuesInsideParent(c.Param("uuid"))
+	reposeHandler(resp, nil, c)
+}
+
+func (inst *Controller) NodesValuesSubFlow(c *gin.Context) {
+	resp := inst.Flow.NodesValuesSubFlow(c.Param("uuid"))
+	reposeHandler(resp, nil, c)
+}
+
 func (inst *Controller) NodePallet(c *gin.Context) {
 	resp, err := inst.Flow.NodePallet()
 	if err != nil {
