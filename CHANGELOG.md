@@ -9,6 +9,11 @@
 - Bump flow version to v0.6.1
 
 
+## [v0.2.3](https://github.com/NubeIO/rubix-edge-wires/tree/v0.2.3) (2023-01-04)
+
+- Bump flow version to v0.6.7
+
+
 ## [v0.2.0](https://github.com/NubeIO/rubix-edge-wires/tree/v0.2.0) (2022-12-18)
 
 - Bump flow version to v0.6.0
