@@ -5,7 +5,7 @@ module github.com/NubeIO/rubix-edge-wires
 go 1.18
 
 require (
-	github.com/NubeDev/flow-eng v0.7.1
+	github.com/NubeDev/flow-eng v0.7.2
 	github.com/NubeIO/nubeio-rubix-lib-models-go v1.3.7
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.1
